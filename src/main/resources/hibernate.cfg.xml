@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1/samsung_store_management_system</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"/>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <mapping class="com.samsung.entity.Product"/>
+        <mapping class="com.samsung.entity.Admin"/>
+    </session-factory>
+</hibernate-configuration>
+<mapping-databaseidprovider>liquibase</mapping-databaseidprovider>
+<mapping-databaseid>default</mapping-databaseid>
+<mapping-databaseid>default-path</mapping-databaseid>
+<mapping-databaseid>liquibase</mapping-databaseid>
