@@ -74,6 +74,7 @@ Prerequisite : Make sure that you have install docker-compose & docker, and your
     ```
 
 ## Architecture Explanation
+### Ratpack
 Ratpack is somewhat different from Spring. Ratpack is a lightweight HTTP library built for Java that uses context for every HTTP call. For every module created, we will create 4 foundational components:
 
 1. Routes.java
@@ -91,6 +92,21 @@ The Service is a collection of functions that parse parameters into results. A s
 4. Repository.java
 
 The Repository file connects with the database. For best practices, it should not be called directly by the handler. Each table in the database should have only one corresponding repository file.
+
+### Database (MySQL)
+All data will be stored in a MySQL database. To facilitate the connection between our Ratpack application and MySQL, we use two libraries: Hibernate and Liquibase.
+
+#### Liquibase
+Liquibase will serve as a version control system for the database schema. Any changes to the table structure will be managed through this system. You can refer to the changelog file here:
+
+> src/main/resources/db/changelog/db.changelog-master.xml
+
+To apply new updates from the changelog or when setting up the repository for the first time, run the following command:
+
+> mvn liquibase:update
+
+#### Hibernate
+Hibernate is an ORM (Object-Relational Mapping) system that connects our database to executable Java code. For Hibernate, we will primarily create Entity Java classes for each table. These entities will be used by Hibernate to perform Insert, Update, and Delete operations on the database, as well as to read data from the database.
 
    
 ## Contributing!
