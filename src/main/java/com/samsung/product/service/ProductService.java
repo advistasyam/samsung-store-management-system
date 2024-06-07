@@ -2,7 +2,6 @@ package com.samsung.product.service;
 
 import com.samsung.entity.Product;
 import com.samsung.product.repository.ProductRepository;
-import ratpack.handling.Context;
 import ratpack.service.Service;
 import ratpack.util.MultiValueMap;
 
@@ -17,19 +16,18 @@ public class ProductService implements Service {
     return productRepository.getById(id);
   }
 
-  public List<Product> findByCondition(Context ctx) {
-    String condition = "from Product where 1=1" + generateProductCondition(ctx);
-    return productRepository.getByCondition(condition, ctx);
+  public List<Product> findByCondition(MultiValueMap<String, String> param) {
+    String condition = "from Product where 1=1" + generateProductCondition(param);
+    return productRepository.getByCondition(condition, param);
   }
 
-  public Long countByCondition(Context ctx) {
-    String condition = "select count(*) from Product where 1=1" + generateProductCondition(ctx);
-    return productRepository.countByCondition(condition, ctx);
+  public Long countByCondition(MultiValueMap<String, String> param) {
+    String condition = "select count(*) from Product where 1=1" + generateProductCondition(param);
+    return productRepository.countByCondition(condition, param);
   }
 
-  private String generateProductCondition(Context ctx) {
+  private String generateProductCondition(MultiValueMap<String, String> param) {
     String condition = "";
-    MultiValueMap<String, String> param = ctx.getRequest().getQueryParams();
     if (param.get("type") != null) {
       condition += " and type = :type";
     }

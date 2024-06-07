@@ -32,13 +32,13 @@ public class ProductHandler {
       @RequestParam(value = "startTime", required = false) Timestamp endTime,
    */
   public void getProducts(Context ctx) {
-    MultiValueMap<String, String> params = ctx.getRequest().getQueryParams();
-    if (StringUtils.isBlank(params.get("pageNo")) || StringUtils.isBlank(params.get("pageSize"))) {
+    MultiValueMap<String, String> param = ctx.getRequest().getQueryParams();
+    if (StringUtils.isBlank(param.get("pageNo")) || StringUtils.isBlank(param.get("pageSize"))) {
       ResponseUtil.badRequestResponse(ctx, "pageNo and pageSize cannot be blank");
       return;
     }
-    List<Product> products = productService.findByCondition(ctx);
-    Long count = productService.countByCondition(ctx);
+    List<Product> products = productService.findByCondition(param);
+    Long count = productService.countByCondition(param);
     ResponseUtil.okResponse(ctx, ProductListResponse.from(products, count));
   }
 

@@ -6,7 +6,6 @@ import com.samsung.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import ratpack.handling.Context;
 import ratpack.util.MultiValueMap;
 
 import javax.inject.Inject;
@@ -94,13 +93,12 @@ public class ProductRepository {
     }
   }
 
-  public List<Product> getByCondition(String condition, Context ctx) {
+  public List<Product> getByCondition(String condition, MultiValueMap<String, String> param) {
     Session session = null;
     try {
       session = hibernateUtil.openSession();
       Query<Product> query = session.createQuery(condition, Product.class);
-      MultiValueMap<String, String> param = ctx.getRequest().getQueryParams();
-      setListProductCondition(ctx, query);
+      setListProductCondition(param, query);
 
       int limit = Integer.parseInt(param.get("pageSize"));
       int offset = (Integer.parseInt(param.get("pageNo")) - 1) * limit;
@@ -118,12 +116,12 @@ public class ProductRepository {
     return new ArrayList<>();
   }
 
-  public Long countByCondition(String condition, Context ctx) {
+  public Long countByCondition(String condition, MultiValueMap<String, String> param) {
     Session session = null;
     try {
       session = hibernateUtil.openSession();
       Query<Long> query = session.createQuery(condition, Long.class);
-      setListProductCondition(ctx, query);
+      setListProductCondition(param, query);
 
       return query.getSingleResult();
     } catch (Exception e) {
@@ -136,8 +134,7 @@ public class ProductRepository {
     return 0L;
   }
 
-  private void setListProductCondition(Context ctx, Query<?> query) {
-    MultiValueMap<String, String> param = ctx.getRequest().getQueryParams();
+  private void setListProductCondition(MultiValueMap<String, String> param, Query<?> query) {
     if (param.get("type") != null) {
       query.setParameter("type", ProductType.valueOf(param.get("type")));
     }
