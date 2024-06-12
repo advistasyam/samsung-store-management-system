@@ -1,5 +1,6 @@
 package com.samsung.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +19,6 @@ public class Admin {
   private String username;
 
   @Column(nullable = false)
+  @JsonIgnore
   private String password;
 }
