@@ -27,7 +27,8 @@ public class AdminHandler {
       String username = req.username;
       String password = req.password;
       if (adminService.isValidCredential(username, password)) {
-        String token = authUtils.generateToken(username);
+        Admin admin = adminService.findByUsername(username);
+        String token = authUtils.generateToken(admin);
         ResponseUtil.okResponse(ctx, AdminLoginResponse.from(token));
       } else {
         ResponseUtil.badRequestResponse(ctx, "username or password is incorrect");

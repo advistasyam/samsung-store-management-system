@@ -13,6 +13,7 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <mapping class="com.samsung.entity.Product"/>
         <mapping class="com.samsung.entity.Admin"/>
+        <mapping class="com.samsung.entity.Feed"/>
     </session-factory>
 </hibernate-configuration>
 <mapping-databaseidprovider>liquibase</mapping-databaseidprovider>

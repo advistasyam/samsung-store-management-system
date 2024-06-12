@@ -5,4 +5,5 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <include file="001-create-products-table.xml" relativeToChangelogFile="true"/>
     <include file="002-create-admins-table.xml" relativeToChangelogFile="true"/>
+    <include file="003-create-feeds-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
